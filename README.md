@@ -23,5 +23,5 @@ O objetivo é construir uma solução funcional e testável para o Botão de Pâ
 
 ---
 
-
+![{433E38CC-5283-46C6-9F0D-64914F9A4072}](https://github.com/user-attachments/assets/adbe6e75-e329-470a-952c-c83d517800a1)
 
