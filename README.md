@@ -11,7 +11,7 @@ Este repositório contém a implementação e evolução de um projeto de Projet
 ---
 
 ## 🏆 Desafio - Projeto de Rastreamento e controle de fluxo de pessoas em hospital  
-O objetivo é construir uma solução funcional e testável para o Botão de Pânico, incorporando melhorias e funcionalidadeS.
+O objetivo é construir uma solução funcional e testável para o rastreamento e monitoramento de pessoas, incorporando melhorias e funcionalidadeS.
 
 ---
 
