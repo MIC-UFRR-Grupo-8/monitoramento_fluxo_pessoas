@@ -52,10 +52,10 @@ void trilateration(float d1, float d2, float d3, float& xx, float& yy) {
 
   // Envia as coordenadas ao Firebase
   String path = "/location";
-  FirebaseJson json; 
-  json.set("x", xx); 
+  FirebaseJson json;
+  json.set("x", xx);
   json.set("y", yy);
- // String json = String("{\"x\":") + String(xx) + ",\"y\":" + String(yy) + "}";
+  // String json = String("{\"x\":") + String(xx) + ",\"y\":" + String(yy) + "}";
   if (Firebase.RTDB.setJSON(&fbdo, path.c_str(), &json)) {
     Serial.println("Coordenadas enviadas ao Firebase!");
   } else {
@@ -81,7 +81,8 @@ void setup() {
   // Iniciar comunicação com o PN532
   if (!nfc.begin()) {
     Serial.println("Não foi possível encontrar o PN532. Verifique as conexões.");
-    while (1);
+    while (1)
+      ;
   }
 
   // Configurar o leitor para ler apenas tags ISO14443A (RFID/NFC 13.56MHz)
@@ -91,7 +92,7 @@ void setup() {
   connectWiFi();
   // Configurações do Firebase
   config.host = FIREBASE_HOST;
-  config.signer.tokens.legacy_token = FIREBASE_AUTH;  
+  config.signer.tokens.legacy_token = FIREBASE_AUTH;
   // Inicializa o Firebase
   Firebase.begin(&config, &auth);
   Firebase.reconnectWiFi(true);
@@ -106,11 +107,13 @@ void setup() {
 }
 
 void loop() {
-  Serial.print("NO LOOP");
   //TAG RFID
+  Serial.println("Aproxime uma tag RFID...");
+
   uint8_t success;
   uint8_t uid[] = { 0, 0, 0, 0, 0, 0, 0 };  // Buffer para o UID
   uint8_t uidLength;                        // Comprimento do UID
+  String tagUID = "";
 
   // Tenta ler uma tag
   success = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, uid, &uidLength);
@@ -119,13 +122,23 @@ void loop() {
     Serial.println("Tag detectada!");
     Serial.print("UID da tag: ");
     for (uint8_t i = 0; i < uidLength; i++) {
-      Serial.print(uid[i], HEX);  // Imprime o UID em hexadecimal
-      Serial.print(" ");
+      if (uid[i] < 0x10) tagUID += "0";      // Adiciona zero à esquerda para números menores que 16
+      tagUID += String(uid[i], HEX);         // Converte o byte para hexadecimal
+      if (i < uidLength - 1) tagUID += ":";  // Adiciona separador ":" entre os bytes
     }
+    Serial.print("UID para enviar: ");
+    Serial.println(tagUID);
     Serial.println();
     Serial.println("-------------------------");
-  } 
+  }
 
+  // Envia o UID para o Firebase
+  if (Firebase.RTDB.pushString(&fbdo, "/rfid_tags", tagUID.c_str())) {
+    Serial.println("UID enviado ao Firebase com sucesso!");
+  } else {
+    Serial.print("Erro ao enviar UID ao Firebase: ");
+    Serial.println(fbdo.errorReason());
+  }
   // LOCALIZAÇÃO
   int rssi1 = 0, rssi2 = 0, rssi3 = 0;
   float d1 = 0, d2 = 0, d3 = 0;
@@ -148,8 +161,8 @@ void loop() {
   Serial.print(", y = ");
   Serial.println(yy);
 
-//TESTES INICIO
-// Exibe os resultados
+  //TESTES INICIO
+  // Exibe os resultados
   Serial.println("---- Resultados de RSSI e Distância ----");
   if (rssi1 != 0) {
     Serial.print("RSSI do Roteador 1: ");
@@ -169,7 +182,6 @@ void loop() {
   } else {
     Serial.println("Roteador 2: Não detectado.");
   }
-
   if (rssi3 != 0) {
     Serial.print("RSSI do Roteador 3: ");
     Serial.print(rssi3);
