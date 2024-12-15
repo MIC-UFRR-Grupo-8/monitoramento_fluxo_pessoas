@@ -10,7 +10,6 @@ FirebaseData fbdo;
 FirebaseConfig config;
 FirebaseAuth auth;
 
-// Definição dos pinos I2C do ESP32
 #define SDA_PIN 21
 #define SCL_PIN 22
 
@@ -96,11 +95,18 @@ void setup() {
   // Inicializa o Firebase
   Firebase.begin(&config, &auth);
   Firebase.reconnectWiFi(true);
+
+  if (!Firebase.ready()) {
+    Serial.println("Falha ao conectar ao Firebase!");
+  } else {
+    Serial.println("Conectado ao Firebase!");
+  }
+
   delay(100);
 }
 
 void loop() {
-
+  Serial.print("NO LOOP");
   //TAG RFID
   uint8_t success;
   uint8_t uid[] = { 0, 0, 0, 0, 0, 0, 0 };  // Buffer para o UID
@@ -141,6 +147,39 @@ void loop() {
   Serial.print(xx);
   Serial.print(", y = ");
   Serial.println(yy);
+
+//TESTES INICIO
+// Exibe os resultados
+  Serial.println("---- Resultados de RSSI e Distância ----");
+  if (rssi1 != 0) {
+    Serial.print("RSSI do Roteador 1: ");
+    Serial.print(rssi1);
+    Serial.print(" dBm, Distância: ");
+    Serial.print(d1);
+    Serial.println(" metros");
+  } else {
+    Serial.println("Roteador 1: Não detectado.");
+  }
+  if (rssi2 != 0) {
+    Serial.print("RSSI do Roteador 2: ");
+    Serial.print(rssi2);
+    Serial.print(" dBm, Distância: ");
+    Serial.print(d2);
+    Serial.println(" metros");
+  } else {
+    Serial.println("Roteador 2: Não detectado.");
+  }
+
+  if (rssi3 != 0) {
+    Serial.print("RSSI do Roteador 3: ");
+    Serial.print(rssi3);
+    Serial.print(" dBm, Distância: ");
+    Serial.print(d3);
+    Serial.println(" metros");
+  } else {
+    Serial.println("Roteador 3: Não detectado.");
+  }
+  //TESTES FIM
 
   delay(1000);  // Aguarda 1 segundo antes de tentar novamente
 }
