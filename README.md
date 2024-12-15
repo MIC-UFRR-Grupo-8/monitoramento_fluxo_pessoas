@@ -28,8 +28,9 @@ O objetivo é construir uma solução funcional e testável para o rastreamento 
 [Repositório Git](https://docs.google.com/document/d/1AlJ9DO4o2LPJToWAxKjFgpKYu9xCGHF98rcZlYyaaRY/edit?usp=sharing)  
 [Organograma](https://docs.google.com/document/d/1XdvnUFwDIKvUcewWTCl3U4-BJwrKjW3qfOOF76EwfSs/edit?usp=sharing)  
 [Kanban](https://docs.google.com/document/d/1x0BZT6RFUianLEFcX5L46qdsi2gW8r9P5XeWkAmYYfw/edit?usp=sharing)  
-[Plano de testes](https://docs.google.com/document/d/131jcKz8A26xxMbWcdjZnxGswREr0lxDU/edit?usp=sharing&ouid=112365603420203575103&rtpof=true&sd=true)  
-[Documento de Progresso](https://docs.google.com/document/d/1SKMxFcTUKuPd06Gwed8X0k6DkqN4hWGt/edit)
+[Plano de testes](https://docs.google.com/document/d/131jcKz8A26xxMbWcdjZnxGswREr0lxDU/edit?usp=sharing)  
+[Documento de Progresso](https://docs.google.com/document/d/1SKMxFcTUKuPd06Gwed8X0k6DkqN4hWGt/edit?usp=sharing)  
+[Big Picture](https://drive.google.com/file/d/1LtbJ_VL_ywOqmFaPIBR7nopm4HCAVjCl/view?usp=sharing)
 
 
 ---
